@@ -37,13 +37,18 @@
 }
 
 - (IBAction)saveButtonTapped:(id)sender {
+    //if there already is an existing entry, update it
     if (self.entry) {
         self.entry.title = self.textField.text;
         self.entry.bodyText = self.textView.text;
         self.entry.timestamp = [NSDate date];
     }
+    //if there is no existing entry, make a new one
     else{
-    self.entry = [[EntryController sharedInstance] createEntryWithTitle:self.textField.text withBodyText:self.textView.text];
+        self.entry = [[EntryController sharedInstance] createEntryWithTitle:self.textField.text withBodyText:self.textView.text];
+        if ([self.entry.title isEqualToString: @""]){
+            self.entry.title = @"Untitled";
+        }
     }
 }
 
