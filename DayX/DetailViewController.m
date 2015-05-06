@@ -7,10 +7,13 @@
 //
 
 #import "DetailViewController.h"
+#import "EntryController.h"
+
 
 @interface DetailViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+
 
 @end
 
@@ -19,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self updateWithEntry:self.entry];
     
 }
 
@@ -31,6 +35,23 @@
     self.textField.text = @"";
     self.textView.text = @"";
 }
+
+- (IBAction)saveButtonTapped:(id)sender {
+    if (self.entry) {
+        self.entry.title = self.textField.text;
+        self.entry.bodyText = self.textView.text;
+        self.entry.timestamp = [NSDate date];
+    }
+    else{
+    self.entry = [[EntryController sharedInstance] createEntryWithTitle:self.textField.text withBodyText:self.textView.text];
+    }
+}
+
+-(void)updateWithEntry:(Entry *)entry{
+    self.textField.text = entry.title;
+    self.textView.text = entry.bodyText;
+}
+
 
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
