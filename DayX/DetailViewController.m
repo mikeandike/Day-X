@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "EntryController.h"
 
 @interface DetailViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
@@ -19,6 +20,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self updateWithEntry:self.entry];
+}
+
+- (IBAction)saveButtonTapped:(id)sender {
+    if (self.entry) {
+        self.entry.titleProperty = self.titleField.text;
+        self.entry.bodyProperty = self.textField.text;
+        self.entry.timeProperty = [NSDate date];
+    }
+    else{
+        self.entry = [[EntryController sharedInstance] createNewEntryWithTitle:self.titleField.text Body:self.textField.text];
+    }
+    
+    if ([self.entry.titleProperty isEqualToString:@""]) {
+        self.entry.titleProperty = @"[Untitled]";
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)clearButtonTapped:(id)sender {
@@ -26,7 +45,10 @@
     self.titleField.text = @"";
 }
 
-
+-(void)updateWithEntry:(Entry *)entry{
+    self.titleField.text = entry.titleProperty;
+    self.textField.text = entry.bodyProperty;
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

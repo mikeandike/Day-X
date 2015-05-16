@@ -57,6 +57,13 @@
                             <constraint firstItem="z26-g8-oid" firstAttribute="centerX" secondItem="1Hq-go-yVO" secondAttribute="centerX" constant="-0.5" id="h5n-Fm-01K"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Jzh-YX-OSQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="3mx-qD-36f">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="Z8B-d0-dxv" id="P32-aY-D3q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="textField" destination="1Hq-go-yVO" id="qnq-4G-wP7"/>
                         <outlet property="titleField" destination="z26-g8-oid" id="NMQ-54-VOs"/>
@@ -106,6 +113,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="pBv-ot-d76" id="vy0-Iq-mID"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <customObject id="xTp-to-91d" customClass="ListViewControllerDataSource"/>
